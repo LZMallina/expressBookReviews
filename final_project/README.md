@@ -7,5 +7,5 @@
 
 * $ npm install --save axios
 
-* node asyncAxiosRequest.js
+* $ node index.js
 
