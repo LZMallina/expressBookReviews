@@ -59,11 +59,17 @@ regd_users.post("/login", (req,res) => {
 regd_users.put("/auth/review/:isbn", (req, res) => {
   //Write your code here
   const isbn = req.params.isbn;
-  let review = books[isbn].reviews;
-  
-  review.text = req.body.text;
-  review.reviewer = req.body.reviewer
-  res.send("review is updated")
+  let text = req.body.text;
+  let reviewer = req.session.authorization.username;
+
+  if (books[isbn]) {
+    let book = books[isbn];
+    
+    book.reviews[reviewer] = text;
+    return res.send("Review is updated!")
+  } else {
+    return res.send("ISBN not found")
+  }
 });
 
 // DELETE request: Delete a review by reviewer
